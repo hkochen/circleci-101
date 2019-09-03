@@ -1,32 +1,13 @@
 jobs:
-  - name: CxScanExample
+  - name: job
     public: true
     plan:
-      - get: webgoat-src
-        trigger: true
-      - task: submit-scan
+      - task: simple-task
         config:
           platform: linux
           image_resource:
             type: registry-image
-            source: { repository: openjdk, tag: "8u212-jdk-stretch" }
-          inputs:
-            - name: webgoat-src 
+            source: { repository: busybox }
           run:
-            path: /bin/bash
-            args:
-              - -c
-              - |
-                wget https://download.checkmarx.com/8.9.0/Plugins/CxConsolePlugin-8.90.0.zip
-                unzip CxConsolePlugin-8.90.0.zip > /dev/null
-                chmod +x runCxConsole.sh
-                ./runCxConsole.sh Scan \
-                -CxServer https://www.checkmarx.ford.com \
-                -CxUser hkochend \
-                -CxPassword Hmfog192459! \
-                -ProjectName 'CxServer\Ford\EV\Hannah' \
-                -LocationType folder \
-                -LocationPath C:\Users\HKOCHEND\Downloads\WebGoat-develop \
-                -ReportXML report-file.xml \
-                -Comment 'Launched from Concourse' \
-                -verbose 
+            path: echo
+            args: ["Hello, world!"]
