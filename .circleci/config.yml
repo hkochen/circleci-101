@@ -1,4 +1,4 @@
-jobs:
+job:
   - name: CxScanExample
     public: true
     plan:
